@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+const conversationRoute = require("./routes/conversation");
+const messageRoute = require("./routes/message");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
@@ -14,7 +16,7 @@ const app = express();
 
 dotenv.config();
 
-mongoose.connect(process.env.MONGO_URI, () => {
+mongoose.connect(process.env.MONGO_URI_2, () => {
   console.log("Connected to database");
 });
 
@@ -48,6 +50,8 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
+app.use("/api/conversations", conversationRoute);
+app.use("/api/messages", messageRoute);
 
 app.listen(8800, () => {
   console.log("Server is running on port 8800");
